@@ -12,6 +12,9 @@ export const Root: FC = () =>
             import('eruda').then((lib) => lib.default.init());
         }
     }, [debug]);
+    useEffect(() => {
+         extracted().then(r => r);
+    }, []);
 
     return (
     <StrictMode>
@@ -20,4 +23,10 @@ export const Root: FC = () =>
         </SDKProvider>
     </StrictMode>
     );
+
+    async function extracted() {
+        const response = await fetch('/api/bot/test');
+        const data = await response.json();
+        const delMe = data;
+    }
 }

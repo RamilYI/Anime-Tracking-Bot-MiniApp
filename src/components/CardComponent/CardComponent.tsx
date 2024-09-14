@@ -12,16 +12,12 @@ export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
             width: 41.2
         }}
                      src={cardDto.image}/>}
-        after={<Checkbox value={cardDto.id}/>}
+        after={<Checkbox onChange={() => {
+            cardDto.isEnabled = !cardDto.isEnabled;
+        }} />}
         subtitle={<p style={{fontSize: "12px", margin: 0}}>9/12</p>}
         multiline
         style={{margin:-10}}>
         <h1 style={{fontSize:"13px", margin: 0, color:"#229ED9"}}>{cardDto.title.english ?? cardDto.title.romaji}</h1>
-
     </Cell>
-    // return <Banner
-    //     before={<Image size={128} src={cardDto.image} />}
-    //     header={cardDto.title.english ?? cardDto.title.romaji}
-    //     subheader="Start exploring TON in a new, better way"
-    //     type="inline"/>
 }
