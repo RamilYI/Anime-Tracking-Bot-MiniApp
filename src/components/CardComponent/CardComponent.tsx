@@ -11,7 +11,7 @@ export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
             objectFit: 'cover',
             width: 41.2
         }}
-                     src={cardDto.image}/>}
+                     src={cardDto.coverImage.large}/>}
         after={<Checkbox onChange={() => {
             cardDto.isEnabled = !cardDto.isEnabled;
         }} />}

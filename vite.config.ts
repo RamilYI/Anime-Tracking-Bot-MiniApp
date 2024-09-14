@@ -10,8 +10,9 @@ export default defineConfig({
     proxy:{
       '/api/bot/test':{
         target: 'http://localhost:5152',
+        changeOrigin: true,
         secure: false,
-      }
+      },
     }
   }
 })
