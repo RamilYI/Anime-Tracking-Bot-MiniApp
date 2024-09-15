@@ -14,7 +14,7 @@ export default function ListComponent()
     useEffect(() => {
         const getSeasonData = async () => {
             try{
-                const response = await fetch('/api/bot/test');
+                const response = await fetch('/api/bot/getSeason');
                 const data = await response.json() as TitleInformationDto[];
                 const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
                     const findDtoIndex = array.findIndex(x => value.id == x.id);
