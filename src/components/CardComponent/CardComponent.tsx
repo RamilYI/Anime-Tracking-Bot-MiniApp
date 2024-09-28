@@ -15,9 +15,9 @@ export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
         after={<Checkbox onChange={() => {
             cardDto.isEnabled = !cardDto.isEnabled;
         }} />}
-        subtitle={<p style={{fontSize: "12px", margin: 0}}>9/12</p>}
+        subtitle={<p style={{fontSize: "12px", margin: 0}}>?/?</p>}
         multiline
         style={{margin:-10}}>
-        <h1 style={{fontSize:"13px", margin: 0, color:"#229ED9"}}>{cardDto.title.english ?? cardDto.title.romaji}</h1>
+        <h1 style={{fontSize:"13px", margin: 0, color:"#229ED9"}}>{cardDto.title.english ?? cardDto.title.romaji ?? cardDto.title.native}</h1>
     </Cell>
 }

@@ -50,14 +50,22 @@ export default function ListComponent()
     return (
         <List>
             <SearchComponent value={searchItem} onChange={handleInputChange}/>
+            <div>
                 {filteredData?.map((dto) => {
                     return <CardComponent key={dto.id} cardDto={dto}/>;
                 })}
-            <Button style={{width:"100%"}} onClick={() =>
+
+            <Button style={{visibility:"hidden"}}/>
+            </div>
+            <Button style={{width:"100%", position:"fixed", bottom:0}} onClick={() =>
             {
                 const ids = filteredData?.filter((dto) => dto.isEnabled).map((dto) => dto.id).toString();
                 if (typeof ids === "string") {
                     miniApp.sendData(ids);
+                }
+                else
+                {
+                    miniApp.sendData("");
                 }
 
                 miniApp.close();

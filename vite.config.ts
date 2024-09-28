@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths(), basicSsl(), ],
   server: {
     proxy:{
-      '/api/bot/test':{
+      '/api/bot/getSeason':{
         target: 'http://localhost:5152',
         changeOrigin: true,
         secure: false,
