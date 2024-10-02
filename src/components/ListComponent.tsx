@@ -9,7 +9,7 @@ export default function ListComponent()
 {
     const [seasonsData, setSeasonsData] = useState<TitleInformationDto[]>([]);
     const [filteredData, setfilteredData] = useState<TitleInformationDto[]>();
-    const miniApp = useMiniApp();
+    const minApp = useMiniApp();
     const urlParams = new URLSearchParams(window.location.search);
     const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
     useEffect(() => {
@@ -71,14 +71,14 @@ export default function ListComponent()
             {
                 const ids = filteredData?.filter((dto) => dto.isEnabled).map((dto) => dto.id).toString();
                 if (typeof ids === "string") {
-                    miniApp.sendData(ids);
+                    minApp.sendData(ids);
                 }
                 else
                 {
-                    miniApp.sendData("");
+                    minApp.sendData("");
                 }
 
-                miniApp.close();
+                minApp.close();
             }}>OK</Button>
         </List>
     );
