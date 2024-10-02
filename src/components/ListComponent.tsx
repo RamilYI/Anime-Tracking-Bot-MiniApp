@@ -38,7 +38,7 @@ export default function ListComponent()
             }
         };
         getSeasonData();
-    }, []);
+    }, [titleParams, seasonsData]);
 
     const [searchItem, setSearchItem] = useState('');
 
