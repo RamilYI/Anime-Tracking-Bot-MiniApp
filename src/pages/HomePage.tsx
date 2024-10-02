@@ -8,7 +8,7 @@ import {
 } from "@telegram-apps/sdk-react";
 import {useEffect} from "react";
 import {AppRoot} from "@telegram-apps/telegram-ui";
-import ListComponent from "../components/ListComponent/ListComponent.tsx";
+import ListComponent from "../components/ListComponent.tsx";
 import {Layout} from "../Layout/Layout.tsx";
 
 export default function HomePage()

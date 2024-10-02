@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {TitleInformationDto} from "../../Infrastructure/TitleInformationDto.ts";
-import CardComponent from "../CardComponent/CardComponent.tsx";
+import {TitleInformationDto} from "../Infrastructure/TitleInformationDto.ts";
+import CardComponent from "./CardComponent.tsx";
 import {Button, List} from "@telegram-apps/telegram-ui";
-import SearchComponent from "../SearchComponent/SearchComponent.tsx";
+import SearchComponent from "./SearchComponent.tsx";
 import {useMiniApp} from "@telegram-apps/sdk-react";
 
 export default function ListComponent()
@@ -10,7 +10,8 @@ export default function ListComponent()
     const [seasonsData, setSeasonsData] = useState<TitleInformationDto[]>([]);
     const [filteredData, setfilteredData] = useState<TitleInformationDto[]>();
     const miniApp = useMiniApp();
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
     useEffect(() => {
         const getSeasonData = async () => {
             try{
@@ -20,6 +21,15 @@ export default function ListComponent()
                     const findDtoIndex = array.findIndex(x => value.id == x.id);
                     return findDtoIndex == index;
                 });
+
+                if (titleParams !== undefined){
+                    filteredData.filter(dto => titleParams.includes(dto.id)).forEach(function(item,i){
+                            item.isEnabled = true;
+                            filteredData.splice(i, 1);
+                            filteredData.unshift(item);
+                    });
+                }
+
                 setSeasonsData(filteredData);
                 setfilteredData(filteredData);
             }

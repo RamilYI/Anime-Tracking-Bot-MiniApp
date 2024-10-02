@@ -4,6 +4,7 @@ import App from "./App";
 
 export const Root: FC = () =>
 {
+
     const debug = useLaunchParams().startParam === 'debug';
 
     // Enable debug mode to see all the methods sent and events received.
