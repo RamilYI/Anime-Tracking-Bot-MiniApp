@@ -12,33 +12,33 @@ export default function ListComponent()
     const miniApp = useMiniApp();
     const urlParams = new URLSearchParams(window.location.search);
     const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
-    useEffect(() => {
-        const getSeasonData = async () => {
-            try{
-                const response = await fetch('/api/bot/getSeason');
-                const data = await response.json() as TitleInformationDto[];
-                const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
-                    const findDtoIndex = array.findIndex(x => value.id == x.id);
-                    return findDtoIndex == index;
-                });
-
-                if (titleParams !== undefined){
-                    filteredData.filter(dto => titleParams.includes(dto.id)).forEach(function(item,i){
-                            item.isEnabled = true;
-                            filteredData.splice(i, 1);
-                            filteredData.unshift(item);
-                    });
-                }
-
-                setSeasonsData(filteredData);
-                setfilteredData(filteredData);
-            }
-            catch(error){
-                console.error(error, "error fetching data");
-            }
-        };
-        getSeasonData();
-    }, [titleParams, seasonsData]);
+    // useEffect(() => {
+    //     const getSeasonData = async () => {
+    //         try{
+    //             const response = await fetch('/api/bot/getSeason');
+    //             const data = await response.json() as TitleInformationDto[];
+    //             const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
+    //                 const findDtoIndex = array.findIndex(x => value.id == x.id);
+    //                 return findDtoIndex == index;
+    //             });
+    //
+    //             if (titleParams !== undefined){
+    //                 filteredData.filter(dto => titleParams.includes(dto.id)).forEach(function(item,i){
+    //                         item.isEnabled = true;
+    //                         filteredData.splice(i, 1);
+    //                         filteredData.unshift(item);
+    //                 });
+    //             }
+    //
+    //             setSeasonsData(filteredData);
+    //             setfilteredData(filteredData);
+    //         }
+    //         catch(error){
+    //             console.error(error, "error fetching data");
+    //         }
+    //     };
+    //     getSeasonData();
+    // }, [titleParams, seasonsData]);
 
     const [searchItem, setSearchItem] = useState('');
 
