@@ -13,7 +13,7 @@ import {Layout} from "../Layout/Layout.tsx";
 
 export default function HomePage()
 {
-    const lp = useLaunchParams();
+    const launchParams = useLaunchParams();
     const miniApp = useMiniApp();
     const themeParams = useThemeParams();
     const viewport = useViewport();
@@ -33,7 +33,7 @@ export default function HomePage()
     return (
         <AppRoot
             appearance={miniApp.isDark ? 'dark' : 'light'}
-            platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
+            platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
         >
             <Layout>
                 <ListComponent/>
