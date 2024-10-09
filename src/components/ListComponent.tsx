@@ -15,7 +15,12 @@ export default function ListComponent()
     useEffect(() => {
         const getSeasonData = async () => {
             try{
-                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason');
+                const headers = {'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'GET, POST,PATCH,OPTIONS'}
+                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason', {
+                    headers: headers,
+                });
                 const data = await response.json() as TitleInformationDto[];
                 const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
                     const findDtoIndex = array.findIndex(x => value.id == x.id);
