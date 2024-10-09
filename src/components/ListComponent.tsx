@@ -11,16 +11,11 @@ export default function ListComponent()
     const [filteredData, setfilteredData] = useState<TitleInformationDto[]>();
     const miniApp = useMiniApp();
     const urlParams = new URLSearchParams(window.location.search);
-    const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
+    const titleParams = urlParams?.get('_titles')?.split(';')?.map(Number);
     useEffect(() => {
         const getSeasonData = async () => {
             try{
-                const headers = {'Content-Type':'application/json',
-                    'Access-Control-Allow-Origin':'*',
-                    'Access-Control-Allow-Methods':'GET, POST,PATCH,OPTIONS'}
-                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason', {
-                    headers: headers,
-                });
+                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason');
                 const data = await response.json() as TitleInformationDto[];
                 const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
                     const findDtoIndex = array.findIndex(x => value.id == x.id);
