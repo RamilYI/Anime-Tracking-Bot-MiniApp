@@ -3,6 +3,7 @@ import {Cell, Checkbox} from "@telegram-apps/telegram-ui";
 
 export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
 {
+
     return <Cell
         Component="label"
         before={<img style={{
