@@ -8,30 +8,30 @@ import {useMiniApp} from "@telegram-apps/sdk-react";
 export default function ListComponent()
 {
     const [seasonsData, setSeasonsData] = useState<TitleInformationDto[]>([]);
-    const [filteredData, setfilteredData] = useState<TitleInformationDto[]>();
+    const [filteredData, setfilteredData] = useState<TitleInformationDto[]>([]);
     const miniApp = useMiniApp();
     const urlParams = new URLSearchParams(window.location.search);
-    const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
+    const titleParams = urlParams?.get('_titles')?.split(';')?.map(Number);
     useEffect(() => {
         const getSeasonData = async () => {
             try{
-                const response = await fetch('/api/bot/getSeason');
+                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason');
                 const data = await response.json() as TitleInformationDto[];
-                const filteredData = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
+                const titleInformationDtos = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
                     const findDtoIndex = array.findIndex(x => value.id == x.id);
                     return findDtoIndex == index;
                 });
-
                 if (titleParams !== undefined){
-                    filteredData.filter(dto => titleParams.includes(dto.id)).forEach(function(item,i){
+                    titleInformationDtos.filter(dto => titleParams.includes(dto.id)).forEach(function(item){
                             item.isEnabled = true;
-                            filteredData.splice(i, 1);
-                            filteredData.unshift(item);
+                            const dtoIndex = titleInformationDtos.findIndex(x => x.id == item.id);
+                            titleInformationDtos.splice(dtoIndex, 1);
+                            titleInformationDtos.unshift(item);
                     });
                 }
 
-                setSeasonsData(filteredData);
-                setfilteredData(filteredData);
+                setSeasonsData(titleInformationDtos);
+                setfilteredData(titleInformationDtos);
             }
             catch(error){
                 console.error(error, "error fetching data");
