@@ -11,7 +11,7 @@ export default function ListComponent()
     const [filteredData, setfilteredData] = useState<TitleInformationDto[]>([]);
     const miniApp = useMiniApp();
     const urlParams = new URLSearchParams(window.location.search);
-    const titleParams = urlParams?.get('_titles')?.split(',')?.map(Number);
+    const titleParams = urlParams?.get('_titles')?.split(';')?.map(Number);
     useEffect(() => {
         const getSeasonData = async () => {
             try{
