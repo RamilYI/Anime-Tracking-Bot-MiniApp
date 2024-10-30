@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy:{
       '/api/bot/getSeason':{
-        target: 'http://89.111.174.61:80',
+        target: 'https://animetracking.duckdns.org/',
         changeOrigin: true,
         secure: false,
       },
