@@ -1,16 +1,8 @@
 import {TitleInformationDto} from "../Infrastructure/TitleInformationDto.ts";
 import {Cell, Checkbox} from "@telegram-apps/telegram-ui";
-import React, {useState} from "react";
 
 export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
 {
-    const [titleValues, setTitleValues] = useState(cardDto);
-
-    function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>){
-        setTitleValues({...titleValues, isEnabled:event.target.checked});
-        cardDto.isEnabled = event.target.checked;
-    }
-
     return <Cell
         Component="label"
         before={<img style={{
@@ -20,7 +12,9 @@ export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
             width: 41.2
         }}
                      src={cardDto.coverImage.large}/>}
-        after={<Checkbox defaultChecked={cardDto.isEnabled} onChange={handleCheckbox}/>}
+        after={<Checkbox checked={cardDto.isEnabled}  onChange={() => {
+            cardDto.isEnabled = !cardDto.isEnabled;
+        }} />}
         subtitle={<p style={{fontSize: "12px", margin: 0}}>?/?</p>}
         multiline
         style={{margin:-10}}>
