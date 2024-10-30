@@ -5,43 +5,15 @@ import {Button, List} from "@telegram-apps/telegram-ui";
 import SearchComponent from "./SearchComponent.tsx";
 import {useMiniApp} from "@telegram-apps/sdk-react";
 
-export default function ListComponent()
-{
-    const [seasonsData, setSeasonsData] = useState<TitleInformationDto[]>([]);
-    const [filteredData, setfilteredData] = useState<TitleInformationDto[]>([]);
+export default function ListComponent({seasonsData}: {
+    seasonsData: TitleInformationDto[]
+}) {
     const miniApp = useMiniApp();
-    const urlParams = new URLSearchParams(window.location.search);
-    const titleParams = urlParams?.get('_titles')?.split(';')?.map(Number);
-    useEffect(() => {
-        const getSeasonData = async () => {
-            try{
-                const response = await fetch('https://animetracking.duckdns.org/api/bot/getSeason');
-                const data = await response.json() as TitleInformationDto[];
-                const titleInformationDtos = data.filter(function (value: TitleInformationDto, index: number, array: TitleInformationDto[]) {
-                    const findDtoIndex = array.findIndex(x => value.id == x.id);
-                    return findDtoIndex == index;
-                });
-                if (titleParams !== undefined){
-                    titleInformationDtos.filter(dto => titleParams.includes(dto.id)).forEach(function(item){
-                            item.isEnabled = true;
-                            const dtoIndex = titleInformationDtos.findIndex(x => x.id == item.id);
-                            titleInformationDtos.splice(dtoIndex, 1);
-                            titleInformationDtos.unshift(item);
-                    });
-                }
-
-                setSeasonsData(titleInformationDtos);
-                setfilteredData(titleInformationDtos);
-            }
-            catch(error){
-                console.error(error, "error fetching data");
-            }
-        };
-        getSeasonData();
-    }, [titleParams, seasonsData]);
-
     const [searchItem, setSearchItem] = useState('');
-
+    const [filteredData, setFilteredData] = useState<TitleInformationDto[]>();
+    useEffect(() => {
+        setFilteredData(seasonsData);
+    }, [seasonsData]);
 
     // обработать поиск тайтла
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +26,7 @@ export default function ListComponent()
             || titleInfoDto.title.native?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-        setfilteredData(filteredItems);
+        setFilteredData(filteredItems);
     }
 
     return (
@@ -65,16 +37,13 @@ export default function ListComponent()
                     return <CardComponent key={dto.id} cardDto={dto}/>;
                 })}
 
-            <Button style={{visibility:"hidden"}}/>
+                <Button style={{visibility: "hidden"}}/>
             </div>
-            <Button style={{width:"100%", position:"fixed", bottom:0}} onClick={() =>
-            {
+            <Button style={{width: "100%", position: "fixed", bottom: 0}} onClick={() => {
                 const ids = filteredData?.filter((dto) => dto.isEnabled).map((dto) => dto.id).toString();
                 if (typeof ids === "string") {
                     miniApp.sendData(ids);
-                }
-                else
-                {
+                } else {
                     miniApp.sendData("");
                 }
 

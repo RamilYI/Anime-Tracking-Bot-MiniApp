@@ -1,13 +1,10 @@
 import {TitleInformationDto} from "../Infrastructure/TitleInformationDto.ts";
 import {Cell, Checkbox} from "@telegram-apps/telegram-ui";
-import React, {useState} from "react";
+import React from "react";
 
 export default function CardComponent({cardDto}:{cardDto: TitleInformationDto})
 {
-    const [titleValues, setTitleValues] = useState(cardDto);
-
     function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>){
-        setTitleValues({...titleValues, isEnabled:event.target.checked});
         cardDto.isEnabled = event.target.checked;
     }
 
