@@ -1,8 +1,8 @@
 {
-  "name": "animetracking_telegrambot_frontend",
+  "name": "Anime-Tracking-Bot-MiniApp",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://ramilyi.github.io/AnimeTrackingDemo_frontend/",
+  "homepage": "https://ramilyi.github.io/Anime-Tracking-Bot-MiniApp/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",

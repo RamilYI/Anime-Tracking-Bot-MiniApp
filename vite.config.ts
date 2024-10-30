@@ -6,11 +6,11 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), basicSsl(), ],
-  base: "/AnimeTrackingDemo_frontend/",
+  base: "/Anime-Tracking-Bot-MiniApp/",
   server: {
     proxy:{
       '/api/bot/getSeason':{
-        target: 'http://89.111.174.61:80',
+        target: 'https://animetracking.duckdns.org/',
         changeOrigin: true,
         secure: false,
       },
